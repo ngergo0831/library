@@ -54,4 +54,8 @@ class User extends Authenticatable
     public function librarian_returned_borrows() {
         return $this->hasMany(Borrow::class,'return_managed_by');
     }
+
+    public function isLibrarian(){
+        return $this->is_librarian;
+    }
 }

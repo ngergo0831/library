@@ -34,4 +34,6 @@ class Borrow extends Model
     public function borrowed_books() {
         return $this->hasMany(Book::class,'book_id');
     }
+
+    
 }
