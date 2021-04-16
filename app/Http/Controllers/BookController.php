@@ -72,6 +72,7 @@ class BookController extends Controller
     public function edit($id)
     {
         //
+        return "edit";
     }
 
     /**
@@ -94,6 +95,14 @@ class BookController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $res = Book::where('id',$id);
+        $title = $res->first()->title;
+        $res->delete();
+        if ($res){
+            $status = "könyv sikeresen törölve";
+        }else{
+            $status = "A törlés során hiba lépett fel.";
+        }
+        return redirect()->route('books.index')->with(['status' => $status,'title' => $title]);
     }
 }

@@ -37,7 +37,7 @@ class Book extends Model
     }
 
     public function availableCount(){
-        return $this->in_stock + $this->activeBorrows();
+        return $this->in_stock + $this->activeBorrows()->count();
     }
 
     public function isAvailable(){

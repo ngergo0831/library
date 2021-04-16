@@ -17,7 +17,7 @@ use App\Http\Controllers\GenreController;
 
 Route::get('/', function () {
     return redirect()->route('books.index');
-});
+})->name('home');
 
 Route::get('/home', function () {
     return redirect()->route('books.index');

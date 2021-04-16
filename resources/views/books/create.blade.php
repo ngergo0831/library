@@ -1,12 +1,12 @@
 @extends('layouts.app')
-@section('title', 'Új kategória')
+@section('title', 'Új könyv')
 
 @section('content')
 <div class="container">
     <h1>Új bejegyzés</h1>
-    <p class="mb-1">Ezen az oldalon tudsz új bejegyzést létrehozni.</p>
+    <p class="mb-1">Ezen az oldalon tudsz új könyvet létrehozni.</p>
     <div class="mb-4">
-        <a href="{{ route('books.index') }}"><i class="fas fa-long-arrow-alt-left"></i> Vissza a bejegyzésekhez</a>
+        <a href="{{ route('books.index') }}"><i class="fas fa-long-arrow-alt-left"></i> Vissza a könyvekhez</a>
     </div>
 
     @if (Session::has('book-created'))

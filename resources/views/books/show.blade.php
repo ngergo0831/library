@@ -5,7 +5,7 @@
 <div class="container">
     <div class="row justify-content-between">
         <div class="col-12 col-md-8">
-            <h1><strong>{{ $book->title }}</strong></h1>
+            <h1 id="#book-title"><strong>{{ $book->title }}</strong></h1>
 
             <div class="d-flex my-1 text-secondary">
                 <span class="mr-2">
@@ -15,23 +15,25 @@
                 </span>
             </div>
 
-            <div class="mb-2">
+            <div class="mb-2" id="book-genres">
                 @foreach($book->genres as $genre)
                     <a href="#" class="badge badge-{{ $genre->style }}">{{ $genre->name }}</a>
                 @endforeach
             </div>
 
             <div class="mb-3">
-                <a href="{{ route('books.index') }}"><i class="fas fa-long-arrow-alt-left"></i> Minden könyv</a>
+                <a href="{{ route('books.index') }}" id="all-books-ref"><i class="fas fa-long-arrow-alt-left"></i> Minden könyv</a>
             </div>
         </div>
         <div class="col-12 col-md-4">
-            <div class="py-md-3 text-md-right">
+            <div class="py-md-3 text-md-right" id="book-actions">
                 <p class="my-1">Könyv kezelése:</p>
-                @can('update', $book)
-                    <a href="{{ route('books.edit', $book) }}" role="button" class="btn btn-sm btn-primary"><i class="far fa-edit"></i> Módosítás</a>
-                @endcan
-                <button type="button" class="btn btn-sm btn-danger"><i class="far fa-trash-alt"></i> Törlés</button>
+                <a href="{{ route('books.edit', $book) }}" role="button" class="btn btn-sm btn-primary" id="edit-book-btn"><i class="far fa-edit"></i> Módosítás</a>
+                <form action="{{ route('books.destroy', $book) }}" style="display: inline" method="POST">
+                    @csrf
+                    @method("DELETE")
+                    <button type="submit" class="btn btn-sm btn-danger"><i class="far fa-trash-alt"></i> Törlés</button>
+                </form>
             </div>
         </div>
     </div>
@@ -47,16 +49,16 @@
         @endif
         <h1><strong>Könyv adatai</strong></h1>
         <ul class="fa-ul">
-            <li><span class="fa-li"><i class="fas fa-user"></i></span><strong>Szerzők:</strong> {{$book->authors}}</li>
-            <li><span class="fa-li"><i class="far fa-calendar-alt"></i></span><strong>Kiadás dátuma:</strong> {{$book->released_at}}</li>
-            <li><span class="fa-li"><i class="far fa-file"></i></span><strong>Oldalak száma:</strong> {{$book->pages}}</li>
-            <li><span class="fa-li"><i class="fas fa-language"></i></span><strong>Nyelv:</strong> {{$book->language_code}}</li>
-            <li><span class="fa-li"><i class="fas fa-database"></i></span><strong>ISBN:</strong> {{$book->isbn}}</li>
-            <li><span class="fa-li"><i class="fas fa-sign-in-alt"></i></span><strong>Készleten:</strong> {{$book->in_stock}}</li>
-            <li><span class="fa-li"><i class="fas fa-sign-out-alt"></i></span><strong>Jelenleg kikölcsönözve:</strong> {{"Még nem jó !!!rossz!!!"}}</li>
+            <li><span class="fa-li"><i class="fas fa-user"></i></span><strong>Szerzők:</strong> <span id="book-authors">{{$book->authors}}</span></li>
+            <li><span class="fa-li"><i class="far fa-calendar-alt"></i></span><strong>Kiadás dátuma:</strong>  <span id="book-date">{{$book->released_at}}</span></li>
+            <li><span class="fa-li"><i class="far fa-file"></i></span><strong>Oldalak száma:</strong>  <span id="book-pages">{{$book->pages}}</span></li>
+            <li><span class="fa-li"><i class="fas fa-language"></i></span><strong>Nyelv:</strong>  <span id="book-lang">{{$book->language_code}}</span></li>
+            <li><span class="fa-li"><i class="fas fa-database"></i></span><strong>ISBN:</strong>  <span id="book-isbn">{{$book->isbn}}</span></li>
+            <li><span class="fa-li"><i class="fas fa-sign-in-alt"></i></span><strong>Készleten:</strong>  <span id="book-in-stock">{{$book->in_stock}}</span></li>
+            <li><span class="fa-li"><i class="fas fa-sign-out-alt"></i></span><strong>Jelenleg kikölcsönözve:</strong>  <span id="book-borrowed">{{$book->activeBorrows()->count()}}</span></li>
         </ul>
         <h1><strong>Könyv leírása</strong></h1>
-        <p><strong>{{$book->description}}</strong></p>
+        <p><strong> <span id="book-description">{{$book->description}}</span></strong></p>
     </div>
 </div>
 @endsection
