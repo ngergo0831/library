@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Genre;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 class GenreFactory extends Factory
 {
@@ -21,8 +22,11 @@ class GenreFactory extends Factory
      */
     public function definition()
     {
+         $possible_styles = ['primary','secondary','success','danger','warning','info','dark','light'];
+
         return [
-            //
+            'name' => Str::ucfirst($this->faker->word),
+            'style' => $this->faker->randomElement($possible_styles),
         ];
     }
 }

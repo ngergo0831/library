@@ -2,10 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Genre;
+use App\Models\Book;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Storage;
+use Auth;
+use Gate;
 
 class BookController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->only(['create', 'store', 'edit', 'update']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +23,11 @@ class BookController extends Controller
      */
     public function index()
     {
-        //
+        $books = Book::paginate(9);
+        $book_count = Book::all();
+        $genres = DB::table('genres')->get();
+        $user_count = DB::table('users')->get()->count();
+        return view('books.index', ['books' => $books,'book_count' => $book_count, 'genres' => $genres, 'user_count' => $user_count]);
     }
 
     /**
@@ -23,7 +37,8 @@ class BookController extends Controller
      */
     public function create()
     {
-        //
+        $genres = Genre::all();
+        return view('books.create', compact('genres'));
     }
 
     /**
@@ -43,9 +58,9 @@ class BookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Book $book)
     {
-        //
+        return view('books.show', compact('book'));
     }
 
     /**

@@ -15,10 +15,7 @@ class CreateBorrowsTable extends Migration
     {
         Schema::create('borrows', function (Blueprint $table) {
             $table->id();
-            /*
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
-            $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade'); 
-            */
+        
             $table->unsignedBigInteger('reader_id');
             $table->unsignedBigInteger('book_id');
             $table->enum('status',['PENDING', 'ACCEPTED', 'REJECTED', 'RETURNED']);

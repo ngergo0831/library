@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Borrow;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class BorrowSeeder extends Seeder
 {
@@ -13,6 +15,7 @@ class BorrowSeeder extends Seeder
      */
     public function run()
     {
-        //
+        DB::table('borrows')->truncate();
+        Borrow::factory(10)->create();
     }
 }

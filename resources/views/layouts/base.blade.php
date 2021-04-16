@@ -1,26 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hu">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>
         @if (View::hasSection('title'))
             @yield('title')
         @else
-            Laravel Alkalmazás
+            Online könyvtár
         @endif
     </title>
+
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/fontawesome.css') }}">
 </head>
 <body>
     <header class="mb-3">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="{{ route('home') }}">
-                <img src="{{ asset('images/bootstrap.svg') }}" width="30" height="30" class="d-inline-block align-top" alt="Logo">
-                Blog
-            </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -39,11 +36,11 @@
     </main>
 
     <footer>
-        <div class="container">
+        <div class="container mb-4">
             <hr>
             <div class="d-flex flex-column align-items-center">
                 <div>
-                    <span class="small">Alapszintű Blog</span>
+                    <span class="small">Nagy Gergő - CS4LP6</span>
                     <span class="mx-1">·</span>
                     <span class="small">Laravel {{ app()->version() }}</span>
                     <span class="mx-1">·</span>
