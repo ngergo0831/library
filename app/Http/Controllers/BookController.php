@@ -49,7 +49,42 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate(
+            // Validation rules
+            [
+                'title' => 'required|min:3|max:255',
+                'authors' => 'required|min:3|max:255',
+                'released_at' => 'required|date|before_or_equal:today',
+                'pages' => 'required|min:1',
+                'isbn' => 'required|regex:/^(?=(?:\D*\d){10}(?:(?:\D*\d){3})?$)[\d-]+$/i',
+                'description' => 'nullable',
+                'genres' => 'nullable',
+                'genres.*' => 'integer|distinct|exists:genres,id',
+                'attachment' => 'nullable|image|max:1024',
+                'in_stock' => 'required|integer|min:0|max:3000',
+            ],
+            // Custom messages
+            [
+                'title.required' => 'A címet meg kell adni.',
+                'title.min' => 'A cím legalább :min karakter legyen.',
+                'required' => 'A(z) :attribute mezőt meg kell adni.',
+            ]
+        );
+
+        // Store file
+        if ($request->hasFile('attachment')) {
+            $file = $request->file('attachment');
+            Storage::disk('book_covers')->put('cover_'.(Book::all()->count()+1).'.'.$file->extension(), $file->get());
+        }
+
+        $data['cover_image'] = asset('images/book_covers/'.'cover_'.(Book::all()->count()+1).'.'.$file->extension());
+
+        $book = Book::create($data);
+
+        $book->genres()->attach($request->genres);
+
+        $request->session()->flash('book-created', $book->title);
+        return redirect()->route('books.create');
     }
 
     /**

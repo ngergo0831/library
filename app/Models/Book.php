@@ -23,7 +23,7 @@ class Book extends Model
         'isbn',
         'in_stock'
     ];
-
+    
     public function genres() {
         return $this->belongsToMany(Genre::class, 'book_genre')->withTimestamps();
     }
