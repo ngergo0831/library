@@ -9,13 +9,13 @@
             <h3 class="mb-1">Minden könyv</h3>
         </div>
         <div class="col-12 col-md-4">
-            @auth
                 <div class="py-md-3 text-md-right">
+                    @auth
                     <p class="my-1">Elérhető műveletek:</p>
                     <a href="{{ route('genres.create') }}" role="button" class="btn btn-sm btn-success mb-1" id="create-genre-btn"><i class="fas fa-plus-circle"></i> Új műfaj</a>
                     <a href="{{ route('books.create') }}" role="button" class="btn btn-sm btn-success mb-1" id="create-book-btn"><i class="fas fa-plus-circle"></i> Új könyv</a>
+                    @endauth
                 </div>
-            @endauth
         </div>
     </div>
 

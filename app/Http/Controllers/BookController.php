@@ -141,7 +141,7 @@ class BookController extends Controller
             ]
         );
 
-        $file = $request->file('attachment') ? $request->file('attachment') : $book->cover_image;
+        $file = $request->file('attachment') ? $request->file('attachment') : ltrim(strrchr(parse_url($book->cover_image, PHP_URL_PATH), '/'), '/');
 
         if($request->has('remove_cover')){
             if ($request->hasFile('attachment')) {
@@ -177,6 +177,8 @@ class BookController extends Controller
     {
         $res = Book::where('id',$id);
         $title = $res->first()->title;
+        $file = ltrim(strrchr(parse_url($res->first()->cover_image, PHP_URL_PATH), '/'), '/');
+        Storage::disk('book_covers')->delete($file);
         $res->delete();
         if ($res){
             $status = "könyv sikeresen törölve";

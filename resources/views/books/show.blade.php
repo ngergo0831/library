@@ -6,7 +6,6 @@
     <div class="row justify-content-between">
         <div class="col-12 col-md-8">
             <h1 id="#book-title"><strong>{{ $book->title }}</strong></h1>
-
             <div class="d-flex my-1 text-secondary">
                 <span class="mr-2">
                     <span>
@@ -14,10 +13,9 @@
                     </span>
                 </span>
             </div>
-
             <div class="mb-2" id="book-genres">
                 @foreach($book->genres as $genre)
-                    <a href="#" class="badge badge-{{ $genre->style }}">{{ $genre->name }}</a>
+                    <a href="{{ route('genres.show', $genre->id) }}" class="badge badge-{{ $genre->style }}">{{ $genre->name }}</a>
                 @endforeach
             </div>
 
@@ -27,6 +25,7 @@
         </div>
         <div class="col-12 col-md-4">
             <div class="py-md-3 text-md-right" id="book-actions">
+                @auth
                 <p class="my-1">Könyv kezelése:</p>
                 <a href="{{ route('books.edit', $book) }}" role="button" class="btn btn-sm btn-primary" id="edit-book-btn"><i class="far fa-edit"></i> Módosítás</a>
                 <form action="{{ route('books.destroy', $book) }}" style="display: inline" method="POST">
@@ -34,6 +33,7 @@
                     @method("DELETE")
                     <button type="submit" class="btn btn-sm btn-danger"><i class="far fa-trash-alt"></i> Törlés</button>
                 </form>
+                @endauth
             </div>
         </div>
     </div>
