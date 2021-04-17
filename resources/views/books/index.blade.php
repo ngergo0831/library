@@ -11,9 +11,11 @@
         <div class="col-12 col-md-4">
                 <div class="py-md-3 text-md-right">
                     @auth
+                    @if (Auth::user()->is_librarian)
                     <p class="my-1">Elérhető műveletek:</p>
                     <a href="{{ route('genres.create') }}" role="button" class="btn btn-sm btn-success mb-1" id="create-genre-btn"><i class="fas fa-plus-circle"></i> Új műfaj</a>
                     <a href="{{ route('books.create') }}" role="button" class="btn btn-sm btn-success mb-1" id="create-book-btn"><i class="fas fa-plus-circle"></i> Új könyv</a>
+                    @endif
                     @endauth
                 </div>
         </div>

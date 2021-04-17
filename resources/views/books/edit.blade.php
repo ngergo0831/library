@@ -1,6 +1,8 @@
 @extends('layouts.app')
 @section('title', 'Könyv szerkesztése: '.$book->title)
 
+@auth
+@if (Auth::user()->is_librarian)
 @section('content')
 <div class="container">
     <h1>Könyv módosítása</h1>
@@ -164,3 +166,5 @@
     </form>
 </div>
 @endsection
+@endif
+@endauth

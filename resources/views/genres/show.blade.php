@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Műfaj - {{$genre->name}}')
+@section('title', 'Műfaj - '.$genre->name)
 
 @section('content')
 <div class="container">
@@ -10,13 +10,15 @@
         <div class="col-12 col-md-4">
                 <div class="py-md-3 text-md-right" id="genre-actions">
                     @auth
+                    @if (Auth::user()->is_librarian)
                     <p class="my-1">Elérhető műveletek:</p>
                     <a href="{{ route('genres.edit', $genre) }}" role="button" class="btn btn-sm btn-primary mb-1" id="edit-genre-btn"><i class="fas fa-plus-circle"></i> Módosítás</a>
                     <form action="{{ route('genres.destroy', $genre) }}" method="POST" style="display: inline">
-                    @method('DELETE')
-                    @csrf
-                    <button type="submit" class="btn btn-sm btn-danger mb-1" id="delete-genre-btn"><i class="fas fa-plus-circle"></i> Törlés</button>
+                        @method('DELETE')
+                        @csrf
+                        <button type="submit" class="btn btn-sm btn-danger mb-1" id="delete-genre-btn"><i class="fas fa-plus-circle"></i> Törlés</button>
                     </form>
+                    @endif
                     @endauth
                 </div>
         </div>

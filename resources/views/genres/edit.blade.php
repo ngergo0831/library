@@ -2,6 +2,8 @@
 @section('title', 'Műfaj szerkesztése: '.$genre->name)
 
 @section('content')
+@auth
+@if (Auth::user()->is_librarian)
 <div class="container">
     <h1>Műfaj szerkesztése</h1>
     <p class="mb-1">Ezen az oldalon tudsz műfajt szerkeszteni. A könyveket úgy tudod hozzárendelni, ha a
@@ -46,4 +48,6 @@
         </div>
     </form>
 </div>
+@endif
+@endauth
 @endsection

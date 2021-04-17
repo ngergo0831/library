@@ -26,6 +26,7 @@
         <div class="col-12 col-md-4">
             <div class="py-md-3 text-md-right" id="book-actions">
                 @auth
+                @if (Auth::user()->is_librarian)
                 <p class="my-1">Könyv kezelése:</p>
                 <a href="{{ route('books.edit', $book) }}" role="button" class="btn btn-sm btn-primary" id="edit-book-btn"><i class="far fa-edit"></i> Módosítás</a>
                 <form action="{{ route('books.destroy', $book) }}" style="display: inline" method="POST">
@@ -33,6 +34,7 @@
                     @method("DELETE")
                     <button type="submit" class="btn btn-sm btn-danger"><i class="far fa-trash-alt"></i> Törlés</button>
                 </form>
+                @endif
                 @endauth
             </div>
         </div>

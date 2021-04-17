@@ -2,6 +2,8 @@
 @section('title', 'Új kategória')
 
 @section('content')
+@auth
+@if (Auth::user()->is_librarian)
 <div class="container">
     <h1>Új kategória</h1>
     <p class="mb-1">Ezen az oldalon lehet új kategóriát létrehozni.</p>
@@ -45,3 +47,5 @@
     </form>
 </div>
 @endsection
+@endif
+@endauth
