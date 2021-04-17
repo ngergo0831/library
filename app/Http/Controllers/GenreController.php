@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
 use App\Models\Genre;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class GenreController extends Controller
 {
@@ -74,7 +76,11 @@ class GenreController extends Controller
      */
     public function show($id)
     {
-        //
+        $genre = Genre::find($id);
+        $books = $genre->books()->paginate(9);
+        $book_count = Book::all();
+        $user_count = DB::table('users')->get()->count();
+        return view('genres.show', ['genres' => Genre::all(),'genre' => $genre,'books' => $books, 'user_count' => $user_count,'book_count' => $book_count]);
     }
 
     /**
@@ -124,6 +130,14 @@ class GenreController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $res = Genre::where('id',$id);
+        $name = $res->first()->name;
+        $res->delete();
+        if ($res){
+            $status = "műfaj sikeresen törölve";
+        }else{
+            $status = "A törlés során hiba lépett fel.";
+        }
+        return redirect()->route('books.index')->with(['status' => $status,'name' => $name]);
     }
 }

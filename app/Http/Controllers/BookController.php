@@ -75,9 +75,8 @@ class BookController extends Controller
         if ($request->hasFile('attachment')) {
             $file = $request->file('attachment');
             Storage::disk('book_covers')->put('cover_'.(Book::all()->count()+1).'.'.$file->extension(), $file->get());
+            $data['cover_image'] = asset('images/book_covers/'.'cover_'.(Book::all()->count()+1).'.'.$file->extension());
         }
-
-        $data['cover_image'] = asset('images/book_covers/'.'cover_'.(Book::all()->count()+1).'.'.$file->extension());
 
         $book = Book::create($data);
 
@@ -104,10 +103,10 @@ class BookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Book $book)
     {
-        //
-        return "edit";
+        $genre = Genre::all();
+        return view('books.edit', ['book' => $book, 'genres' => $genre]);
     }
 
     /**
@@ -117,9 +116,55 @@ class BookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Book $book)
     {
-        //
+        $data = $request->validate(
+            // Validation rules
+            [
+                'title' => 'required|min:3|max:255',
+                'authors' => 'required|min:3|max:255',
+                'released_at' => 'required|date|before_or_equal:today',
+                'pages' => 'required|min:1',
+                'isbn' => 'required|regex:/^(?=(?:\D*\d){10}(?:(?:\D*\d){3})?$)[\d-]+$/i',
+                'description' => 'nullable',
+                'genres' => 'nullable',
+                'genres.*' => 'integer|distinct|exists:genres,id',
+                'attachment' => 'nullable|image|max:1024',
+                'in_stock' => 'required|integer|min:0|max:3000',
+                'remove_cover' => 'nullable|boolean'
+            ],
+            // Custom messages
+            [
+                'title.required' => 'A címet meg kell adni.',
+                'title.min' => 'A cím legalább :min karakter legyen.',
+                'required' => 'A(z) :attribute mezőt meg kell adni.',
+            ]
+        );
+
+        $file = $request->file('attachment') ? $request->file('attachment') : $book->cover_image;
+
+        if($request->has('remove_cover')){
+            if ($request->hasFile('attachment')) {
+                $request->session()->flash('book-update-error');
+                return redirect()->route('books.edit', $book);
+            }else{
+                Storage::disk('book_covers')->delete($file);
+                $data['cover_image'] = null;
+            }
+        }else{
+            if ($request->hasFile('attachment')) {
+                Storage::disk('book_covers')->delete('cover_'.$book->id.'.'.$file->extension());
+                Storage::disk('book_covers')->put('cover_'.$book->id.'.'.$file->extension(), $file->get());
+                $data['cover_image'] = asset('images/book_covers/'.'cover_'.$book->id.'.'.$file->extension());
+            }
+        }
+
+        $book->update($data);
+
+        $book->genres()->sync($request->genres);
+
+        $request->session()->flash('book-updated', $book->title);
+        return redirect()->route('books.edit', $book);
     }
 
     /**

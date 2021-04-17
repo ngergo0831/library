@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('title', 'Műfaj szerkesztése: '.$genre->name)
 
 @section('content')
@@ -23,7 +22,7 @@
         <div class="form-group row">
             <label for="name" class="col-sm-2 col-form-label">Műfaj neve*</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" placeholder="Műfaj neve" value="{{ old('name') }}">
+                <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" placeholder="Műfaj neve" value="{{ old('name') ? old('name') : $genre->name }}">
                 @error('name')
                     <div class="invalid-feedback">
                         {{ $message }}
@@ -34,7 +33,7 @@
         <div class="form-group row">
             <label for="style" class="col-sm-2 col-form-label">Műfaj stílusa*</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control @error('style') is-invalid @enderror" id="style" name="style" placeholder="Műfaj stílusa" value="{{ old('style') }}">
+                <input type="text" class="form-control @error('style') is-invalid @enderror" id="style" name="style" placeholder="Műfaj stílusa" value="{{ old('style') ? old('style') : $genre->style }}">
                 @error('style')
                 <div class="invalid-feedback">
                     {{ $message }}

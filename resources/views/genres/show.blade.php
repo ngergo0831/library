@@ -1,32 +1,31 @@
 @extends('layouts.app')
-@section('title', 'Könyvek')
+@section('title', 'Műfaj - {{$genre->name}}')
 
 @section('content')
 <div class="container">
     <div class="row justify-content-between">
         <div class="col-12 col-md-8">
-            <h1>Üdvözlünk a könyvtárban!</h1>
-            <h3 class="mb-1">Minden könyv</h3>
+            <h1 class="mb-1"><span id="genre">{{$genre->name}}</span></h1>
         </div>
         <div class="col-12 col-md-4">
-            @auth
-                <div class="py-md-3 text-md-right">
+                <div class="py-md-3 text-md-right" id="genre-actions">
                     <p class="my-1">Elérhető műveletek:</p>
-                    <a href="{{ route('genres.create') }}" role="button" class="btn btn-sm btn-success mb-1" id="create-genre-btn"><i class="fas fa-plus-circle"></i> Új műfaj</a>
-                    <a href="{{ route('books.create') }}" role="button" class="btn btn-sm btn-success mb-1" id="create-book-btn"><i class="fas fa-plus-circle"></i> Új könyv</a>
+                    <a href="{{ route('genres.edit', $genre) }}" role="button" class="btn btn-sm btn-primary mb-1" id="edit-genre-btn"><i class="fas fa-plus-circle"></i> Módosítás</a>
+                    <form action="{{ route('genres.destroy', $genre) }}" method="POST" style="display: inline">
+                    @method('DELETE')
+                    @csrf
+                    <button type="submit" class="btn btn-sm btn-danger mb-1" id="delete-genre-btn"><i class="fas fa-plus-circle"></i> Törlés</button>
+                    </form>
                 </div>
-            @endauth
         </div>
     </div>
 
     @if (session('status'))
         @if(session('title'))
             <div class="alert alert-success w-100 d-flex justify-content-center" id="book-deleted">
-                <span id="book-name">{{session('title')}}</span>&nbsp;{{ "című ".session('status') }}
-            </div>
-        @elseif (session('name'))
-            <div class="alert alert-success w-100 d-flex justify-content-center" id="genre-deleted">
-                <span id="genre-name">{{session('name')}}</span>&nbsp;{{ "című ".session('status') }}
+                <span id="book-name">{{session('title')}}</span>
+                &nbsp;
+                {{ "című ".session('status') }}
             </div>
         @else
             <div class="alert alert-danger w-100 d-flex justify-content-center" id="book-deleted">
@@ -80,8 +79,8 @@
                         <div class="card-body genres-list">
                             <h5 class="card-title mb-2">Műfajok</h5>
                             <p class="small">Könyvek megtekintése egy adott műfajhoz.</p>
-                            @forelse ($genres as $genre)
-                            <a href="{{ route('genres.show', $genre->id) }}" class="badge badge-{{$genre->style}}">{{$genre->name}}</a>
+                            @forelse ($genres as $genree)
+                            <a href="{{ route('genres.show', $genree->id) }}" class="badge badge-{{$genree->style}}">{{$genree->name}}</a>
                             @empty
                             @endforelse
                         </div>
