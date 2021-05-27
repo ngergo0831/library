@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Genre;
-use App\Models\Book;
 use App\Models\Borrow;
-use Auth;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class BorrowController extends Controller
+class ProfileController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +16,8 @@ class BorrowController extends Controller
      */
     public function index()
     {
-        $id = Auth::id();
-        $borrows = Borrow::all()->where('reader_id','=',$id)->sortByDesc('created_at');
-        return view('borrows.index', ['borrows' => $borrows]);
+        $borrows = Borrow::all();
+        return view('profile.index',compact('borrows'));
     }
 
     /**
@@ -49,10 +47,9 @@ class BorrowController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Borrow $borrow)
+    public function show($id)
     {
-        $book = $borrow->borrowed_books;
-        return view('borrows.show', ['borrow' => $borrow,'book' => $book]);
+        //
     }
 
     /**

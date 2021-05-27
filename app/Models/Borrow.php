@@ -24,11 +24,11 @@ class Borrow extends Model
     }
 
     public function librarian_requested_borrows() {
-        return $this->belongsToMany(User::class,'request_managed_by')->withTimestamps();
+        return $this->belongsTo(User::class,'request_managed_by');
     }
 
     public function librarian_returned_borrows() {
-        return $this->belongsToMany(User::class,'return_managed_by')->withTimestamps();
+        return $this->belongsTo(User::class,'return_managed_by');
     }
 
     public function borrowed_books() {

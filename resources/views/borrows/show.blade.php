@@ -58,13 +58,23 @@
         </ul>
             <strong>Kölcsönzés feldolgozása</strong>
         <ul class="fa-ul">
-            <li><span class="fa-li"><i class="fas fa-sign-in-alt"></i></span><strong>Feldolgozva ekkor:</strong>  <span>{{$borrow->request_processed_at ? $borrow->request_processed_at : "Még nem került feldolgozásra"}}</span></li>
-            <li><span class="fa-li"><i class="fas fa-sign-out-alt"></i></span><strong>Feldolgozta:</strong>  <span>{{$borrow->request_managed_by ? $borrow->request_managed_by : "Még nem került feldolgozásra"}}</span></li>
-            <li><span class="fa-li"><i class="fas fa-sign-out-alt"></i></span><strong>Feldolgozó könyvtáros megjegyzése:</strong>  <span>{{$borrow->request_processed_message ? $borrow->request_processed_message : "Nincsen"}}</span></li>
-            <li><span class="fa-li"><i class="fas fa-sign-out-alt"></i></span><strong>Határidő:</strong>  <span>{{$borrow->deadline ? $borrow->deadline : "Nincsen"}}</span></li>
+            @if($borrow->request_processed_at)
+            <li><span class="fa-li"><i class="fas fa-sign-in-alt"></i></span><strong>Feldolgozva ekkor:</strong>  <span>{{$borrow->request_processed_at}}</span></li>
+            <li><span class="fa-li"><i class="fas fa-sign-out-alt"></i></span><strong>Feldolgozta:</strong>  <span>{{$borrow->librarian_requested_borrows->name}}</span></li>
+            <li><span class="fa-li"><i class="fas fa-sign-out-alt"></i></span><strong>Feldolgozó könyvtáros megjegyzése:</strong>  <span>{{$borrow->request_processed_message}}</span></li>
+            <li><span class="fa-li"><i class="fas fa-sign-out-alt"></i></span><strong>Határidő:</strong>  <span>{{$borrow->deadline}}</span></li>
+            @else
+            <li><span class="fa-li">Nincs információ a feldolgozásról</span></li>
+            @endif
         </ul>
             <strong>Visszajuttatás</strong>
         <ul class="fa-ul">
+            @if($borrow->returned_at)
+            <li><span class="fa-li"><i class="fas fa-sign-in-alt"></i></span><strong>Visszajuttatta ekkor:</strong>  <span>{{$borrow->returned_at}}</span></li>
+            <li><span class="fa-li"><i class="fas fa-sign-out-alt"></i></span><strong>Feldolgozta:</strong>  <span>{{$borrow->librarian_returned_borrows->name}}</span></li>
+            @else
+            <li><span class="fa-li">Nincs információ a feldolgozásról</span></li>
+            @endif
         </ul>
     </div>
         </div>

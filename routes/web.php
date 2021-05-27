@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\BorrowController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,3 +30,4 @@ Auth::routes();
 Route::resource('books', BookController::class);
 Route::resource('genres', GenreController::class);
 Route::resource('borrows', BorrowController::class);
+Route::resource('profile', ProfileController::class);

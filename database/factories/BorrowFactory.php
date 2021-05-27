@@ -34,7 +34,7 @@ class BorrowFactory extends Factory
             'request_processed_at'=> $status == 'PENDING' ? null : $this->faker->dateTimeBetween('-3 years','-1 years'),
             'request_processed_message'=> $status == 'PENDING' ? null : Str::ucfirst($this->faker->words($this->faker->numberBetween(1,5), true)),
             'request_managed_by'=> $status == 'PENDING' ? null : rand(16,20),
-            'deadline'=> $status == 'ACCEPTED' ? $this->faker->dateTimeBetween('now', '+10 week') : null,
+            'deadline'=> ($status == 'ACCEPTED' && $status =='RETURNED') ? $this->faker->dateTimeBetween('now', '+10 week') : null,
             'returned_at'=>$status == 'RETURNED' ? $this->faker->dateTimeBetween('-1 years') : null,
             'return_managed_by'=> $status == 'RETURNED' ? rand(16,20) : null
         ];

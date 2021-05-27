@@ -19,9 +19,13 @@
             @foreach ($borrows->where('status','=','PENDING') as $borrow)
                 <div class="card">
                 <div class="card-body p-2">
-                    <div class="d-flex flex-column">
-                        <div><b>#{{$loop->index + 1}}</b></div>
-                        <div>Könyv: <b>{{ $borrow->borrowed_books->title}}</b></div>
+                    <div class="d-flex">
+                        <div class="p-2"><b>#{{$loop->index + 1}}</b></div>
+                        <div class="p-2">Könyv: <b>{{ $borrow->borrowed_books->title}}</b></div>
+                        <div class="d-flex flex-column p-auto ml-auto">
+                            <div>Kérve: {{$borrow->created_at}}</div>
+                            <a href="{{ route('borrows.show', $borrow) }}" class="btn btn-primary m-auto ">Adatlap</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -37,7 +41,10 @@
                     <div class="d-flex">
                         <div class="p-2"><b>#{{$loop->index + 1}}</b></div>
                         <div class="p-2">Könyv: <b>{{ $borrow->borrowed_books->title}}</b></div>
-                        <a href="{{ route('borrows.show', $borrow) }}" class="btn btn-primary p-auto ml-auto">Adatlap</a>
+                        <div class="d-flex flex-column p-auto ml-auto">
+                            <div>Kérve: {{$borrow->created_at}}</div>
+                            <a href="{{ route('borrows.show', $borrow) }}" class="btn btn-primary m-auto ">Adatlap</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -47,11 +54,15 @@
         <div class="mt-3 mb-3">
             <h4>Elfogadott kölcsönzések</h4>
             @foreach ($borrows->where('status','=','ACCEPTED') as $borrow)
-                <div class="card">
+               <div class="card">
                 <div class="card-body p-2">
-                    <div class="d-flex flex-column">
-                        <div><b>#{{$loop->index + 1}}</b></div>
-                        <div>Könyv: <b>{{ $borrow->borrowed_books->title}}</b></div>
+                    <div class="d-flex">
+                        <div class="p-2"><b>#{{$loop->index + 1}}</b></div>
+                        <div class="p-2">Könyv: <b>{{ $borrow->borrowed_books->title}}</b></div>
+                        <div class="d-flex flex-column p-auto ml-auto">
+                            <div>Kérve: {{$borrow->created_at}}</div>
+                            <a href="{{ route('borrows.show', $borrow) }}" class="btn btn-primary m-auto ">Adatlap</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -64,10 +75,13 @@
             @foreach ($borrows->where('status','=','RETURNED') as $borrow)
                 <div class="card">
                 <div class="card-body p-2">
-                    <div class="d-flex flex-column">
-                        <div><b>#{{$loop->index + 1}}</b></div>
-                        <div>Könyv: <b>{{ $borrow->borrowed_books->title}}</b></div>
-                        <div class="ml-auto p-2">Flex item</div>
+                    <div class="d-flex">
+                        <div class="p-2"><b>#{{$loop->index + 1}}</b></div>
+                        <div class="p-2">Könyv: <b>{{ $borrow->borrowed_books->title}}</b></div>
+                        <div class="d-flex flex-column p-auto ml-auto">
+                            <div>Kérve: {{$borrow->created_at}}</div>
+                            <a href="{{ route('borrows.show', $borrow) }}" class="btn btn-primary m-auto ">Adatlap</a>
+                        </div>
                     </div>
                 </div>
             </div>
