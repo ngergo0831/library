@@ -77,6 +77,23 @@
         </div>
         <div class="col-12 col-lg-3">
             <div class="row">
+                 <div class="col-12 mb-3">
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <h5 class="card-title mb-2">Keresés</h5>
+                                <p class="small">Könyv keresése cím alapján.</p>
+                                <form action="{{ route('books.index') }}" method="GET">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Keresett cím" name="search_text" id="search_text">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i>
+                                        Keresés</button>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+
                 <div class="col-12 mb-3">
                     <div class="card bg-light">
                         <div class="card-body genres-list">

@@ -28,14 +28,47 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            @auth
+            @if (Auth::user()->is_librarian)
+                 <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+            @else
+                 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            @endif
+            @endauth
+            @guest
+               <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            @endguest
+
             <div class="container">
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
+                    <a class="navbar-brand disabled" href="{{ url('/') }}">Könyvtár</a>
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
-                            <a class="nav-link navbar-brand" href="{{ url('/') }}">Nyitólap</a>
-                        </li>
+
+                    @auth
+                    @if (Auth::user()->is_librarian)
+                        <li class="nav-link disabled">Könyvtáros felület</li>
+                    @else
+                        <li class="nav-link disabled">Olvasó felület</li>
+                    @endif
+                    @endauth
+
+                    @guest
+                       <li class="nav-link disabled">Vendég felület</li>
+                    @endguest
+
+
+                    <li class="nav-item">
+                        <a class="nav-link navbar-brand {{ Route::currentRouteNamed('books.index') ? 'active' : '' }}" href="{{ url('/') }}">Könyvek</a>
+                        @auth
+                        @if (Auth::user()->is_librarian)
+                            <a class="nav-link navbar-brand {{ Route::currentRouteNamed('borrows.index') ? 'active' : '' }}" href="{{ url('/') }}">Kölcsönzések kezelése</a>
+                        @else
+                            <a class="nav-link navbar-brand {{ Route::currentRouteNamed('borrows.index') ? 'active' : '' }}" href="{{  route('borrows.index') }}">Kölcsönzéseim</a>
+                        @endif
+                        @endauth
+                    </li>
+
                     </ul>
 
                     <!-- Right Side Of Navbar -->

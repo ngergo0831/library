@@ -23,11 +23,14 @@ class BookController extends Controller
      */
     public function index()
     {
-        $books = Book::paginate(9);
+        $books = Book::query();
+        if(request('search_text')){
+            $books->where('title','LIKE','%'.request('search_text').'%');
+        }
         $book_count = Book::all();
         $genres = DB::table('genres')->get();
         $user_count = DB::table('users')->get()->count();
-        return view('books.index', ['books' => $books,'book_count' => $book_count, 'genres' => $genres, 'user_count' => $user_count]);
+        return view('books.index', ['books' => $books->paginate(9),'book_count' => $book_count, 'genres' => $genres, 'user_count' => $user_count]);
     }
 
     /**

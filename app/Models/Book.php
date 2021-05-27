@@ -23,13 +23,13 @@ class Book extends Model
         'isbn',
         'in_stock'
     ];
-    
+
     public function genres() {
         return $this->belongsToMany(Genre::class, 'book_genre')->withTimestamps();
     }
 
     public function borrowed() {
-        return $this->belongsTo(Borrow::class,'book_id');
+        return $this->hasMany(Borrow::class,'book_id');
     }
 
     public function activeBorrows(){

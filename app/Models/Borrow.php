@@ -12,7 +12,7 @@ class Borrow extends Model
 {
     use HasFactory;
 
-    
+
 
     protected $fillable = [
         'reader_id','book_id','status',
@@ -20,7 +20,7 @@ class Borrow extends Model
 
 
     public function borrows() {
-        return $this->belongsToMany(User::class,'reader_id')->withTimestamps();
+        return $this->belongsTo(User::class,'reader_id');
     }
 
     public function librarian_requested_borrows() {
@@ -32,8 +32,8 @@ class Borrow extends Model
     }
 
     public function borrowed_books() {
-        return $this->hasMany(Book::class,'book_id');
+        return $this->belongsTo(Book::class,'book_id');
     }
 
-    
+
 }

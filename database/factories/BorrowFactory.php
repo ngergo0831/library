@@ -30,6 +30,7 @@ class BorrowFactory extends Factory
             'reader_id'=>rand(1,15),
             'book_id'=>rand(1,15),
             'status'=> $status,
+            'reader_message' => Str::ucfirst($this->faker->words($this->faker->numberBetween(1,5), true)),
             'request_processed_at'=> $status == 'PENDING' ? null : $this->faker->dateTimeBetween('-3 years','-1 years'),
             'request_processed_message'=> $status == 'PENDING' ? null : Str::ucfirst($this->faker->words($this->faker->numberBetween(1,5), true)),
             'request_managed_by'=> $status == 'PENDING' ? null : rand(16,20),
