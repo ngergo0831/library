@@ -12,7 +12,7 @@
         <div><strong>Regisztrált: </strong>{{Auth::user()->created_at}}</div>
         @if (Auth::user()->is_librarian == 0)
             <div><strong>Összes kölcsönzés: </strong>{{Auth::user()->borrows->count()}}</div>
-            <div><strong>Könyvek nálad: </strong>{{$borrows->where('reader_id','=',Auth::id())->where('status','=','ACCEPTED')->count()}}</div>
+            <div><strong>Könyvek nálad: </strong>{{$borrows->where('reader_id','=',Auth::id())->where('status','=','ACCEPTED')->count()}} (késés: {{DB::table('borrows')->where('reader_id','=',Auth::id())->where('status','=','ACCEPTED')->whereDate('deadline', '<', $now)->count()}})</div>
         @else
             <div><strong>Általad elfogadott kölcsönzések: {{$borrows->where('request_managed_by','=',Auth::id())->where('status','=','ACCEPTED')->count()}}</strong></div>
             <div><strong>Általad elutasított kölcsönzések: {{$borrows->where('request_managed_by','=',Auth::id())->where('status','=','REJECTED')->count()}}</strong></div>

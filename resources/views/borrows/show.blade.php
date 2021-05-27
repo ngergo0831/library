@@ -62,7 +62,7 @@
             <li><span class="fa-li"><i class="fas fa-sign-in-alt"></i></span><strong>Feldolgozva ekkor:</strong>  <span>{{$borrow->request_processed_at}}</span></li>
             <li><span class="fa-li"><i class="fas fa-sign-out-alt"></i></span><strong>Feldolgozta:</strong>  <span>{{$borrow->librarian_requested_borrows->name}}</span></li>
             <li><span class="fa-li"><i class="fas fa-sign-out-alt"></i></span><strong>Feldolgozó könyvtáros megjegyzése:</strong>  <span>{{$borrow->request_processed_message}}</span></li>
-            <li><span class="fa-li"><i class="fas fa-sign-out-alt"></i></span><strong>Határidő:</strong>  <span>{{$borrow->deadline}}</span></li>
+            <li><span class="fa-li"><i class="fas fa-sign-out-alt"></i></span><strong>Határidő:</strong>  <span>{{$borrow->deadline}} {{$borrow->whereDate('deadline', '<', $now)->count() == 0 ? "" : "<strong>(KÉSÉS)</strong>"}}</span></li>
             @else
             <li><span class="fa-li">Nincs információ a feldolgozásról</span></li>
             @endif
@@ -73,7 +73,7 @@
             <li><span class="fa-li"><i class="fas fa-sign-in-alt"></i></span><strong>Visszajuttatta ekkor:</strong>  <span>{{$borrow->returned_at}}</span></li>
             <li><span class="fa-li"><i class="fas fa-sign-out-alt"></i></span><strong>Feldolgozta:</strong>  <span>{{$borrow->librarian_returned_borrows->name}}</span></li>
             @else
-            <li><span class="fa-li">Nincs információ a feldolgozásról</span></li>
+            <li>Nincs információ a feldolgozásról</li>
             @endif
         </ul>
     </div>

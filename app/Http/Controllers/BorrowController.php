@@ -7,6 +7,7 @@ use App\Models\Genre;
 use App\Models\Book;
 use App\Models\Borrow;
 use Auth;
+use Carbon\Carbon;
 
 class BorrowController extends Controller
 {
@@ -52,7 +53,8 @@ class BorrowController extends Controller
     public function show(Borrow $borrow)
     {
         $book = $borrow->borrowed_books;
-        return view('borrows.show', ['borrow' => $borrow,'book' => $book]);
+        $now = Carbon::now();
+        return view('borrows.show', ['borrow' => $borrow,'book' => $book,'now' => $now]);
     }
 
     /**

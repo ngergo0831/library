@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Borrow;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,8 +17,9 @@ class ProfileController extends Controller
      */
     public function index()
     {
+        $now = Carbon::now();
         $borrows = Borrow::all();
-        return view('profile.index',compact('borrows'));
+        return view('profile.index',['borrows' => $borrows, 'now' => $now]);
     }
 
     /**
