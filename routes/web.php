@@ -27,7 +27,10 @@ Route::get('/home', function () {
 
 Auth::routes();
 
+Route::get('/borrows/create', [BorrowController::class,'create'])->name('borrows.create');
+
 Route::resource('books', BookController::class);
 Route::resource('genres', GenreController::class);
-Route::resource('borrows', BorrowController::class);
+Route::resource('borrows', BorrowController::class)->except(['create']);
 Route::resource('profile', ProfileController::class);
+

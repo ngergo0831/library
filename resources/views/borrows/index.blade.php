@@ -25,7 +25,7 @@
                         <div class="p-2">Könyv: <b>{{ $borrow->borrowed_books->title}}</b></div>
                         <div class="d-flex flex-column p-auto ml-auto">
                             <div>Kérve: {{$borrow->created_at}}</div>
-                            <a href="{{ route('borrows.show', $borrow) }}" class="btn btn-primary m-auto ">Adatlap</a>
+                            <a href="{{ route('borrows.show', $borrow) }}" class="btn btn-primary m-auto ">{{Auth::user()->is_librarian ? "Kezelés" : "Adatlap"}}</a>
                         </div>
                     </div>
                 </div>
@@ -44,7 +44,7 @@
                         <div class="p-2">Könyv: <b>{{ $borrow->borrowed_books->title}}</b></div>
                         <div class="d-flex flex-column p-auto ml-auto">
                             <div>Kérve: {{$borrow->created_at}}</div>
-                            <a href="{{ route('borrows.show', $borrow) }}" class="btn btn-primary m-auto ">Adatlap</a>
+                            <a href="{{ route('borrows.show', $borrow) }}" class="btn btn-primary m-auto ">{{Auth::user()->is_librarian ? "Kezelés" : "Adatlap"}}</a>
                         </div>
                     </div>
                 </div>
@@ -62,7 +62,7 @@
                         <div class="p-2">Könyv: <b>{{ $borrow->borrowed_books->title}}</b></div>
                         <div class="d-flex flex-column p-auto ml-auto">
                             <div>Kérve: {{$borrow->created_at}}</div>
-                            <a href="{{ route('borrows.show', $borrow) }}" class="btn btn-primary m-auto ">Adatlap</a>
+                            <a href="{{ route('borrows.show', $borrow) }}" class="btn btn-primary m-auto ">{{Auth::user()->is_librarian ? "Kezelés" : "Adatlap"}}</a>
                         </div>
                     </div>
                 </div>
@@ -81,7 +81,7 @@
                         <div class="p-2">Könyv: <b>{{ $borrow->borrowed_books->title}}</b></div>
                         <div class="d-flex flex-column p-auto ml-auto">
                             <div>Kérve: {{$borrow->created_at}}</div>
-                            <a href="{{ route('borrows.show', $borrow) }}" class="btn btn-primary m-auto ">Adatlap</a>
+                            <a href="{{ route('borrows.show', $borrow) }}" class="btn btn-primary m-auto ">{{Auth::user()->is_librarian ? "Kezelés" : "Adatlap"}}</a>
                         </div>
                     </div>
                 </div>
@@ -100,7 +100,7 @@
                         <div class="p-2">Könyv: <b>{{ $borrow->borrowed_books->title}}</b></div>
                         <div class="d-flex flex-column p-auto ml-auto">
                             <div>Kérve: {{$borrow->created_at}}</div>
-                            <a href="{{ route('borrows.show', $borrow) }}" class="btn btn-primary m-auto ">Adatlap</a>
+                            <a href="{{ route('borrows.show', $borrow) }}" class="btn btn-primary m-auto ">{{Auth::user()->is_librarian ? "Kezelés" : "Adatlap"}}</a>
                         </div>
                     </div>
                 </div>

@@ -34,6 +34,8 @@
                     @method("DELETE")
                     <button type="submit" class="btn btn-sm btn-danger"><i class="far fa-trash-alt"></i> Törlés</button>
                 </form>
+                @else
+                    <a href="{{ route('borrows.create', ['book' => $book]) }}" role="button" class="btn btn-sm btn-primary"><i class="far fa-edit"></i> Kölcsönzés</a>
                 @endif
                 @endauth
             </div>

@@ -62,7 +62,7 @@
                         <a class="nav-link navbar-brand {{ Route::currentRouteNamed('books.index') ? 'active' : '' }}" href="{{ url('/') }}">Könyvek</a>
                         @auth
                         @if (Auth::user()->is_librarian)
-                            <a class="nav-link navbar-brand {{ Route::currentRouteNamed('borrows.index') ? 'active' : '' }}" href="{{ url('/') }}">Kölcsönzések kezelése</a>
+                            <a class="nav-link navbar-brand {{ Route::currentRouteNamed('borrows.index') ? 'active' : '' }}" href="{{ route('borrows.index') }}">Kölcsönzések kezelése</a>
                         @else
                             <a class="nav-link navbar-brand {{ Route::currentRouteNamed('borrows.index') ? 'active' : '' }}" href="{{  route('borrows.index') }}">Kölcsönzéseim</a>
                         @endif
